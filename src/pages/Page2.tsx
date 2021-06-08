@@ -1,13 +1,24 @@
 import React from 'react';
+import {NavigationEvents} from 'react-navigation';
 import {StyleSheet, Text, View, Platform} from 'react-native';
+import {useMediaQuery} from 'react-responsive';
 
-export default function Page2() {
+interface Props {
+  screenProps?: any;
+}
+
+const Page2 = (props: Props) => {
+  const {screenProps} = props;
+  const isMobile = useMediaQuery({query: '(max-width: 1024px)'});
   return (
     <View style={styles.container}>
+      {Platform.OS === 'web' && !isMobile ? (
+        <NavigationEvents onDidFocus={screenProps.onDidFocus} />
+      ) : null}
       <Text>Page 2</Text>
     </View>
   );
-}
+};
 
 const styles = StyleSheet.create({
   container: {
@@ -17,3 +28,5 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
 });
+
+export default Page2;
