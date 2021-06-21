@@ -1,10 +1,18 @@
 import React from 'react';
 import {Text, TouchableOpacity, StyleSheet} from 'react-native';
+//@ts-ignore
 import AntDesign from 'react-native-vector-icons/dist/AntDesign';
 import {colors} from '@constants/index';
 
-const DesktopMenuIconTab = props => {
-  const {isSelected, tabIcon, tabName, onPress} = props;
+interface Props {
+  isSelected: boolean;
+  tabIcon: string;
+  tabTitle: string;
+  onPress: () => void;
+}
+
+const DesktopMenuIconTab = (props: Props) => {
+  const {isSelected, tabIcon, tabTitle, onPress} = props;
 
   return (
     <TouchableOpacity style={styles.container} onPress={onPress}>
@@ -19,7 +27,7 @@ const DesktopMenuIconTab = props => {
           styles.text,
           isSelected ? {color: colors.blue} : {color: colors.black},
         ]}>
-        {tabName}
+        {tabTitle}
       </Text>
     </TouchableOpacity>
   );
@@ -29,7 +37,7 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: '#EEE',
+    backgroundColor: '#fff',
     padding: 12,
   },
   text: {

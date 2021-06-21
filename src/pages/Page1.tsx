@@ -1,21 +1,24 @@
 import React from 'react';
-import {NavigationEvents} from 'react-navigation';
 import {StyleSheet, Text, View, Platform} from 'react-native';
+import DesktopMenuWrapper from '@components/organisms/DesktopMenuWrapper';
 import {useMediaQuery} from 'react-responsive';
 
-interface Props {
-  screenProps?: any;
-}
-
-const Page1 = (props: Props) => {
-  const {screenProps} = props;
+const Page1 = () => {
   const isMobile = useMediaQuery({query: '(max-width: 1024px)'});
+
+  const renderContent = () => (
+    <View style={styles.contentContainer}>
+      <Text>Page 1</Text>
+    </View>
+  );
+
   return (
     <View style={styles.container}>
       {Platform.OS === 'web' && !isMobile ? (
-        <NavigationEvents onDidFocus={screenProps.onDidFocus} />
-      ) : null}
-      <Text>Page 1</Text>
+        <DesktopMenuWrapper>{renderContent()}</DesktopMenuWrapper>
+      ) : (
+        renderContent()
+      )}
     </View>
   );
 };
@@ -24,6 +27,10 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     minHeight: Platform.OS === 'web' ? '100vh' : '100%',
+  },
+  contentContainer: {
+    flex: 1,
+    backgroundColor: '#EEE',
     justifyContent: 'center',
     alignItems: 'center',
   },
